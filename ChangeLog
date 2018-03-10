@@ -1,3 +1,7 @@
+2018-03-10  moto  <moto@Mint2>
+
+	* word.h: CELL structure modify
+
 2018-01-05  moto  <moto@Mint2>
 
 	* word.h (car): CAR CDR CELL declare
