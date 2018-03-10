@@ -10,7 +10,7 @@
 #define ATOM_TYPE TYPE_MASK
 #define NAME_TYPE TYPE_MASK
 
-#define nil (CELL*)0
+/* Ileagal Index Number  */
 #define NONE (index_t)(-1)
 
 typedef int32_t index_t;

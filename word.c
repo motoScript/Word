@@ -3,11 +3,13 @@
 
 
 static CELL  cell[MAX_CELLS_SIZE] = { 0 };
-static CELL* top_of_free_cells = nil;
-static CELL* top_of_para_stack = nil;
-static CELL* top_of_cntl_stack = nil;
-static CELL* top_of_atom_list = nil;
-static CELL* top_of_name_list = nil;
+static CELL* const nil = &cell[0];
+
+static CELL* top_of_free_cells;
+static CELL* top_of_para_stack;
+static CELL* top_of_cntl_stack;
+static CELL* top_of_atom_list;
+static CELL* top_of_name_list;
 
 static ERR intialize_atoms(void);
 
@@ -17,7 +19,7 @@ ERR initialize_cells(void)
 	int32_t idex;
 	int32_t next_idex;
 
-	for( idex = 0, next_idex = 1; idex < MAX_CELLS_SIZE; idex++, next_idex++ )
+	for( idex = 1, next_idex = 2; idex < MAX_CELLS_SIZE; idex++, next_idex++ )
 	{
 		if( next_idex < MAX_CELLS_SIZE )
 		{
@@ -25,7 +27,7 @@ ERR initialize_cells(void)
 		}
 	}
 
-	top_of_free_cells = &cell[0];
+	top_of_free_cells = &cell[1];
 	top_of_para_stack = nil;
 	top_of_cntl_stack = nil;
 	top_of_atom_list = nil;
@@ -65,6 +67,7 @@ index_t cellp2idex(CELL* p_cell)
 
 CELL* alloc_cell(void)
 {
+	
 	CELL* p_cell;
 	
 	if( top_of_free_cells == nil )
@@ -238,95 +241,95 @@ static ERR intialize_atoms(void)
 	ERR err = ERR_OK;
 	CELL* p_cell;
 	
-	p_cell = construct_atom(VALUE, '0'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '1'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '2'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '3'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '4'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '5'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '6'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '7'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '8'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '9'); err |= (TRUE == is_nil(p_cell));
+	p_cell = construct_atom(VALUE, '0'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '1'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '2'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '3'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '4'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '5'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '6'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '7'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '8'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '9'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
 
-	p_cell = construct_atom(VALUE, 'a'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'b'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'c'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'd'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'e'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'f'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'g'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'h'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'i'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'j'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'k'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'l'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'm'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'n'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'o'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'q'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'r'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 's'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 't'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'u'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'v'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'w'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'x'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'y'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'z'); err |= (TRUE == is_nil(p_cell));
+	p_cell = construct_atom(VALUE, 'a'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'b'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'c'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'd'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'e'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'f'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'g'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'h'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'i'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'j'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'k'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'l'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'm'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'n'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'o'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'q'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'r'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 's'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 't'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'u'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'v'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'w'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'x'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'y'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'z'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
 
-	p_cell = construct_atom(VALUE, 'A'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'B'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'C'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'D'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'E'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'F'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'G'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'H'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'I'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'J'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'K'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'L'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'M'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'N'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'O'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'P'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'R'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'S'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'T'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'U'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'V'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'W'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'X'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'Y'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, 'Z'); err |= (TRUE == is_nil(p_cell));
+	p_cell = construct_atom(VALUE, 'A'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'B'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'C'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'D'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'E'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'F'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'G'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'H'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'I'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'J'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'K'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'L'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'M'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'N'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'O'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'P'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'R'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'S'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'T'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'U'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'V'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'W'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'X'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'Y'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, 'Z'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
 
-	p_cell = construct_atom(VALUE, ':'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '['); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, ']'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '{'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '}'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '('); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, ')'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '+'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '-'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '*'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '/'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '%'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '='); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '<'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '>'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '!'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '#'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '$'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '&'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '|'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, ','); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '.'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '^'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '_'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, '@'); err |= (TRUE == is_nil(p_cell));
-	p_cell = construct_atom(VALUE, ';'); err |= (TRUE == is_nil(p_cell));
+	p_cell = construct_atom(VALUE, ':'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '['); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, ']'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '{'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '}'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '('); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, ')'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '+'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '-'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '*'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '/'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '%'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '='); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '<'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '>'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '!'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '#'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '$'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '&'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '|'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, ','); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '.'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '^'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '_'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, '@'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
+	p_cell = construct_atom(VALUE, ';'); err |= is_nil(p_cell) ? ERR_NG : ERR_OK;
 
 	return err;
 }
