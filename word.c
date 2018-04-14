@@ -206,6 +206,76 @@ ERR as_name(CELL* p_cell)
 	}
 }
 
+BOOL is_equal_cell(CELL* p_cell_a, CELL* p_cell_b)
+{
+	if( type_of_cell(p_cell_a) == ATOM &&
+		type_of_cell(p_cell_b) == ATOM )
+	{
+		if( p_cell_a->car == p_cell_b->car &&
+			p_cell_a->cdr == p_cell_b->cdr )
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOL is_equal_cells(CELL* p_cell_a, CELL* p_cell_b)
+{
+	CELL* pa = p_cell_a;
+	CELL* pb = p_cell_b;
+
+	while( is_nil(pa) == FALSE )
+	{
+		CELL* elm_a;
+		CELL* elm_b;
+
+		elm_a = pa->car;
+		elm_b = pb->car;
+		if( is_equal_cell(elm_a, elm_b) == FALSE )
+		{
+			return FALSE;
+		}
+		pa = pa->cdr;
+		pb = pd->cdr;
+	}
+	if( is_nil(pb) == TRUE )
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
+CELL* serach_cells(CELL* p_cell, CELL* p_list)
+{
+	
+}
+
+
+void dump_cells(void)
+{
+	index_t i;
+	TYPE type;
+
+	printf("top of free cells = %d\n", cellp2idex(top_of_free_cells));
+	printf("top of para stack = %d\n", cellp2idex(top_of_para_stack));
+	printf("top of cntl stack = %d\n", cellp2idex(top_of_cntl_stack));
+	printf("top of atom list = %d\n", cellp2idex(top_of_atom_list));
+	printf("top of name list = %d\n", cellp2idex(top_of_name_list));
+	
+	for( i = 0; i < MAX_CELLS_SIZE; i++ )
+	{
+		type = type_of_cell(&cell[i]);
+		if( ATOM == type )
+			printf("idex=%d ATOM car:%x cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
+		if( LIST == type )
+			printf("idex=%d LIST car:%d cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
+		if( NAME == type )
+			printf("idex=%d NAME car:%d cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
+	}
+}
+
+
 /* static */
 static CELL* construct_atom(int32_t wnum, int32_t data)
 {
@@ -334,26 +404,3 @@ static ERR intialize_atoms(void)
 	return err;
 }
 
-
-void dump_cells(void)
-{
-	index_t i;
-	TYPE type;
-
-	printf("top of free cells = %d\n", cellp2idex(top_of_free_cells));
-	printf("top of para stack = %d\n", cellp2idex(top_of_para_stack));
-	printf("top of cntl stack = %d\n", cellp2idex(top_of_cntl_stack));
-	printf("top of atom list = %d\n", cellp2idex(top_of_atom_list));
-	printf("top of name list = %d\n", cellp2idex(top_of_name_list));
-	
-	for( i = 0; i < MAX_CELLS_SIZE; i++ )
-	{
-		type = type_of_cell(&cell[i]);
-		if( ATOM == type )
-			printf("idex=%d ATOM car:%x cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
-		if( LIST == type )
-			printf("idex=%d LIST car:%d cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
-		if( NAME == type )
-			printf("idex=%d NAME car:%d cdr:%d\n", i, cell[i].car.idex, cell[i].cdr.idex);
-	}
-}

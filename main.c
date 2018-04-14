@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "word.h"
 
+#if 0
 void test_print(CELL* p_cell)
 {
 	if( is_nil(p_cell) == TRUE )
@@ -34,5 +35,12 @@ int main(void)
 
 	dump_cells();
 	
+	return 0;
+}
+#endif
+
+
+int main(void)
+{
 	return 0;
 }

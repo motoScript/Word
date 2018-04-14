@@ -1,3 +1,6 @@
+#ifndef _WORD_HEADER_
+#define _WORD_HEADER_
+
 #include <stdint.h>
 
 #define MAX_CELLS_SIZE 200
@@ -66,5 +69,11 @@ extern ERR push_cell(CELL* p_elm);
 extern CELL* pop_cell(void);
 extern ERR as_atom(CELL* p_cell, int32_t wnum, int32_t data);
 extern ERR as_name(CELL* p_cell);
+
+extern BOOL is_equal_cell(CELL* p_cell_a, CELL* p_cell_b);
+extern BOOL is_equal_cells(CELL* p_cell_a, CELL* p_cell_b);
+extern CELL* serach_cells(CELL* p_cell, CELL* p_list);
+
 extern void dump_cells(void);
 
+#endif
